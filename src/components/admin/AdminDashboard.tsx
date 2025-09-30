@@ -13,13 +13,34 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import AdminLoading from './AdminLoading'
+import StatCard from './StatCard'
 
-// Mock dashboard data
+// Mock dashboard data with trends and sparkline data
 const dashboardStats = {
-  totalStories: 1247,
-  totalUsers: 8934,
-  totalViews: 125678,
-  totalLikes: 23456,
+  totalStories: {
+    value: 1247,
+    change: 12,
+    trend: 'up' as const,
+    sparklineData: [1100, 1150, 1180, 1200, 1220, 1240, 1247]
+  },
+  totalUsers: {
+    value: 8934,
+    change: 8,
+    trend: 'up' as const,
+    sparklineData: [8200, 8350, 8500, 8650, 8750, 8850, 8934]
+  },
+  totalViews: {
+    value: 125678,
+    change: 23,
+    trend: 'up' as const,
+    sparklineData: [98000, 105000, 112000, 118000, 122000, 124000, 125678]
+  },
+  totalLikes: {
+    value: 23456,
+    change: 15,
+    trend: 'up' as const,
+    sparklineData: [19500, 20200, 21000, 21800, 22500, 23100, 23456]
+  },
   pendingReviews: 12,
   todaySubmissions: 8,
   activeUsers: 234,
@@ -108,117 +129,141 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {/* Enhanced Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Stories</p>
-              <p className="text-3xl font-bold text-gray-900">{dashboardStats.totalStories.toLocaleString()}</p>
-            </div>
-            <div className="p-3 bg-blue-100 rounded-full">
-              <FileText className="h-6 w-6 text-blue-600" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-center text-sm">
-            <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-            <span className="text-green-600">+12% from last month</span>
-          </div>
-        </div>
+        <StatCard
+          title="Total Stories"
+          value={dashboardStats.totalStories.value}
+          change={dashboardStats.totalStories.change}
+          changeType="percentage"
+          trend={dashboardStats.totalStories.trend}
+          icon={FileText}
+          gradient="bg-gradient-to-br from-blue-500 to-blue-600"
+          sparklineData={dashboardStats.totalStories.sparklineData}
+        />
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Users</p>
-              <p className="text-3xl font-bold text-gray-900">{dashboardStats.totalUsers.toLocaleString()}</p>
-            </div>
-            <div className="p-3 bg-green-100 rounded-full">
-              <Users className="h-6 w-6 text-green-600" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-center text-sm">
-            <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-            <span className="text-green-600">+8% from last month</span>
-          </div>
-        </div>
+        <StatCard
+          title="Total Users"
+          value={dashboardStats.totalUsers.value}
+          change={dashboardStats.totalUsers.change}
+          changeType="percentage"
+          trend={dashboardStats.totalUsers.trend}
+          icon={Users}
+          gradient="bg-gradient-to-br from-green-500 to-green-600"
+          sparklineData={dashboardStats.totalUsers.sparklineData}
+        />
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Views</p>
-              <p className="text-3xl font-bold text-gray-900">{dashboardStats.totalViews.toLocaleString()}</p>
-            </div>
-            <div className="p-3 bg-purple-100 rounded-full">
-              <Eye className="h-6 w-6 text-purple-600" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-center text-sm">
-            <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-            <span className="text-green-600">+23% from last month</span>
-          </div>
-        </div>
+        <StatCard
+          title="Total Views"
+          value={dashboardStats.totalViews.value}
+          change={dashboardStats.totalViews.change}
+          changeType="percentage"
+          trend={dashboardStats.totalViews.trend}
+          icon={Eye}
+          gradient="bg-gradient-to-br from-purple-500 to-purple-600"
+          sparklineData={dashboardStats.totalViews.sparklineData}
+        />
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Likes</p>
-              <p className="text-3xl font-bold text-gray-900">{dashboardStats.totalLikes.toLocaleString()}</p>
-            </div>
-            <div className="p-3 bg-red-100 rounded-full">
-              <Heart className="h-6 w-6 text-red-600" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-center text-sm">
-            <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-            <span className="text-green-600">+15% from last month</span>
-          </div>
-        </div>
+        <StatCard
+          title="Total Likes"
+          value={dashboardStats.totalLikes.value}
+          change={dashboardStats.totalLikes.change}
+          changeType="percentage"
+          trend={dashboardStats.totalLikes.trend}
+          icon={Heart}
+          gradient="bg-gradient-to-br from-pink-500 to-pink-600"
+          sparklineData={dashboardStats.totalLikes.sparklineData}
+        />
       </div>
 
-      {/* Action Cards */}
+      {/* Enhanced Action Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Link href="/admin/stories" className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 hover:bg-yellow-100 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-yellow-800">Pending Reviews</p>
-              <p className="text-2xl font-bold text-yellow-900">{dashboardStats.pendingReviews}</p>
+        <Link href="/admin/stories" className="group relative overflow-hidden bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm font-medium text-white/90">Pending Reviews</p>
+                <p className="text-3xl font-bold text-white">{dashboardStats.pendingReviews}</p>
+              </div>
+              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                <Clock className="h-6 w-6 text-white" />
+              </div>
             </div>
-            <Clock className="h-8 w-8 text-yellow-600" />
+            <p className="text-sm text-white/80">Stories awaiting approval</p>
+            <div className="mt-3 flex items-center text-xs text-white/70">
+              <div className="flex-1 bg-white/20 rounded-full h-1">
+                <div className="bg-white/60 h-1 rounded-full" style={{ width: '75%' }}></div>
+              </div>
+              <span className="ml-2">High Priority</span>
+            </div>
           </div>
-          <p className="text-sm text-yellow-700 mt-2">Stories awaiting approval</p>
         </Link>
 
-        <Link href="/admin/stories" className="bg-blue-50 border border-blue-200 rounded-lg p-6 hover:bg-blue-100 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-blue-800">Today's Submissions</p>
-              <p className="text-2xl font-bold text-blue-900">{dashboardStats.todaySubmissions}</p>
+        <Link href="/admin/stories" className="group relative overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm font-medium text-white/90">Today's Submissions</p>
+                <p className="text-3xl font-bold text-white">{dashboardStats.todaySubmissions}</p>
+              </div>
+              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                <FileText className="h-6 w-6 text-white" />
+              </div>
             </div>
-            <FileText className="h-8 w-8 text-blue-600" />
+            <p className="text-sm text-white/80">New stories submitted today</p>
+            <div className="mt-3 flex items-center text-xs text-white/70">
+              <div className="flex-1 bg-white/20 rounded-full h-1">
+                <div className="bg-white/60 h-1 rounded-full" style={{ width: '60%' }}></div>
+              </div>
+              <span className="ml-2">Above Average</span>
+            </div>
           </div>
-          <p className="text-sm text-blue-700 mt-2">New stories submitted today</p>
         </Link>
 
-        <Link href="/admin/users" className="bg-green-50 border border-green-200 rounded-lg p-6 hover:bg-green-100 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-green-800">Active Users</p>
-              <p className="text-2xl font-bold text-green-900">{dashboardStats.activeUsers}</p>
+        <Link href="/admin/users" className="group relative overflow-hidden bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm font-medium text-white/90">Active Users</p>
+                <p className="text-3xl font-bold text-white">{dashboardStats.activeUsers}</p>
+              </div>
+              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                <Users className="h-6 w-6 text-white" />
+              </div>
             </div>
-            <Users className="h-8 w-8 text-green-600" />
+            <p className="text-sm text-white/80">Users active in last 24h</p>
+            <div className="mt-3 flex items-center text-xs text-white/70">
+              <div className="flex-1 bg-white/20 rounded-full h-1">
+                <div className="bg-white/60 h-1 rounded-full" style={{ width: '85%' }}></div>
+              </div>
+              <span className="ml-2">Excellent</span>
+            </div>
           </div>
-          <p className="text-sm text-green-700 mt-2">Users active in last 24h</p>
         </Link>
 
-        <Link href="/admin/reports" className="bg-red-50 border border-red-200 rounded-lg p-6 hover:bg-red-100 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-red-800">Reported Content</p>
-              <p className="text-2xl font-bold text-red-900">{dashboardStats.reportedContent}</p>
+        <Link href="/admin/reports" className="group relative overflow-hidden bg-gradient-to-br from-red-500 to-rose-600 rounded-xl p-6 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm font-medium text-white/90">Reported Content</p>
+                <p className="text-3xl font-bold text-white">{dashboardStats.reportedContent}</p>
+              </div>
+              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                <AlertCircle className="h-6 w-6 text-white" />
+              </div>
             </div>
-            <AlertCircle className="h-8 w-8 text-red-600" />
+            <p className="text-sm text-white/80">Content requiring attention</p>
+            <div className="mt-3 flex items-center text-xs text-white/70">
+              <div className="flex-1 bg-white/20 rounded-full h-1">
+                <div className="bg-white/60 h-1 rounded-full" style={{ width: '25%' }}></div>
+              </div>
+              <span className="ml-2">Low Risk</span>
+            </div>
           </div>
-          <p className="text-sm text-red-700 mt-2">Content requiring attention</p>
         </Link>
       </div>
 
