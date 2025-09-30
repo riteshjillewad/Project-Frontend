@@ -2,6 +2,16 @@
 
 A modern storytelling and creative content platform built with Next.js 14, Tailwind CSS, and TypeScript. Featuring an Instagram/TikTok-style UI for content discovery and a powerful admin dashboard for analytics and management.
 
+## Access Links
+Run the project using `npm run dev`
+* Homepage: http://localhost:3000/
+* Admin Dashboard: http://localhost:3000/admin
+* Suspended Users: http://localhost:3000/admin/users/suspend
+* Add Admin: http://localhost:3000/admin/admins/add
+* Analytics Dashboard: http://localhost:3000/admin/analytics
+* Portfolio Management: http://localhost:3000/admin/portfolio
+* Competitions List: http://localhost:3000/competitions
+
 ## 🎯 Project Overview
 
 Filmy Creatives is a comprehensive storytelling platform that enables:
